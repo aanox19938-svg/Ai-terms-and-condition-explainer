@@ -1,0 +1,12 @@
+{
+  "name": "ai-tc-explainer",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "AI Terms & Conditions Explainer Web App developed by Mahesh",
+  "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install",
+    "start": "node backend/src/server.js",
+    "dev": "npm --prefix backend run dev"
+  }
+}
