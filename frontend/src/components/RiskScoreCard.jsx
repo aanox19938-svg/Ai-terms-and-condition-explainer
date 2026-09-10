@@ -16,27 +16,24 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
     switch (level) {
       case 'High':
         return {
-          bg: 'bg-rose-500/10 border-rose-500/30 text-rose-400',
+          bg: 'bg-rose-50 border-rose-200 text-rose-700',
           gauge: 'text-rose-500',
-          border: 'border-rose-500/20',
           title: 'Predatory or High-Risk Terms Detected',
-          icon: <ShieldAlert className="w-6 h-6 text-rose-400" />
+          icon: <ShieldAlert className="w-5 h-5 text-rose-600" />
         };
       case 'Medium':
         return {
-          bg: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
+          bg: 'bg-amber-50 border-amber-200 text-amber-800',
           gauge: 'text-amber-500',
-          border: 'border-amber-500/20',
           title: 'Moderate Clauses Requiring Caution',
-          icon: <AlertTriangle className="w-6 h-6 text-amber-400" />
+          icon: <AlertTriangle className="w-5 h-5 text-amber-600" />
         };
       default:
         return {
-          bg: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
+          bg: 'bg-emerald-50 border-emerald-200 text-emerald-800',
           gauge: 'text-emerald-500',
-          border: 'border-emerald-500/20',
           title: 'Generally Standard & Fair Terms',
-          icon: <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+          icon: <CheckCircle2 className="w-5 h-5 text-emerald-600" />
         };
     }
   };
@@ -49,7 +46,7 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
   };
 
   return (
-    <div className={`bg-slate-900 border rounded-2xl p-6 shadow-xl mb-8 transition-all ${style.border}`}>
+    <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-sm mb-8 transition-all">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
         
         {/* Left: Overall Risk Gauge & Info */}
@@ -58,7 +55,7 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
           <div className="relative w-24 h-24 flex items-center justify-center shrink-0">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
               <path
-                className="text-slate-800"
+                className="text-slate-100"
                 strokeWidth="3.5"
                 stroke="currentColor"
                 fill="none"
@@ -75,7 +72,7 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
               />
             </svg>
             <div className="absolute flex flex-col items-center justify-center text-center">
-              <span className="text-2xl font-black text-white">{score}</span>
+              <span className="text-2xl font-black text-slate-900">{score}</span>
               <span className="text-[10px] uppercase font-bold text-slate-400">Score</span>
             </div>
           </div>
@@ -90,24 +87,24 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
                 • {new Date(document.upload_date).toLocaleDateString()}
               </span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white">{document.file_name}</h3>
-            <p className="text-xs sm:text-sm text-slate-400 mt-0.5">{style.title}</p>
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900">{document.file_name}</h3>
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">{style.title}</p>
           </div>
         </div>
 
         {/* Center: Stat Badges */}
         <div className="flex items-center space-x-3 w-full lg:w-auto justify-around lg:justify-start">
-          <div className="px-4 py-2 rounded-xl bg-slate-950/60 border border-slate-800 text-center">
-            <span className="block text-xl font-bold text-rose-400">{highCount}</span>
-            <span className="text-[11px] text-slate-400">High Risk</span>
+          <div className="px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+            <span className="block text-xl font-bold text-rose-600">{highCount}</span>
+            <span className="text-[11px] text-slate-500 font-medium">High Risk</span>
           </div>
-          <div className="px-4 py-2 rounded-xl bg-slate-950/60 border border-slate-800 text-center">
-            <span className="block text-xl font-bold text-amber-400">{mediumCount}</span>
-            <span className="text-[11px] text-slate-400">Medium Risk</span>
+          <div className="px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+            <span className="block text-xl font-bold text-amber-600">{mediumCount}</span>
+            <span className="text-[11px] text-slate-500 font-medium">Medium Risk</span>
           </div>
-          <div className="px-4 py-2 rounded-xl bg-slate-950/60 border border-slate-800 text-center">
-            <span className="block text-xl font-bold text-emerald-400">{lowCount}</span>
-            <span className="text-[11px] text-slate-400">Low / Fair</span>
+          <div className="px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+            <span className="block text-xl font-bold text-emerald-600">{lowCount}</span>
+            <span className="text-[11px] text-slate-500 font-medium">Low / Fair</span>
           </div>
         </div>
 
@@ -117,18 +114,18 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
             onClick={onToggleOriginal}
             className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all ${
               showOriginal
-                ? 'bg-indigo-600 text-white border-indigo-500'
-                : 'bg-slate-800 text-slate-300 hover:text-white border-slate-700'
+                ? 'bg-slate-900 text-white border-slate-900'
+                : 'bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border-slate-200 shadow-2xs'
             }`}
             title="Toggle between AI Summary and Raw Agreement Text"
           >
-            <FileText className="w-4 h-4" />
+            <FileText className="w-4 h-4 text-slate-500" />
             <span>{showOriginal ? 'View AI Analysis' : 'View Original Contract'}</span>
           </button>
 
           <button
             onClick={onOpenChat}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-cyan-600 hover:bg-cyan-500 text-white transition shadow-md shadow-cyan-600/20"
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm"
           >
             <MessageSquare className="w-4 h-4" />
             <span>Ask Q&A Bot</span>
@@ -136,10 +133,10 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
 
           <button
             onClick={handleDownloadPdf}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 transition"
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 border border-slate-200 transition shadow-2xs"
             title="Download formatted PDF Audit Report"
           >
-            <Download className="w-4 h-4 text-indigo-400" />
+            <Download className="w-4 h-4 text-blue-600" />
             <span>Export Report (PDF)</span>
           </button>
         </div>

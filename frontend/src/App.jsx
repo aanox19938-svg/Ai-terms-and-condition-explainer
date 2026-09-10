@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { DisclaimerBanner } from './components/DisclaimerBanner';
 import { UploadZone } from './components/UploadZone';
@@ -10,7 +10,7 @@ import { HistoryModal } from './components/HistoryModal';
 import { SettingsModal } from './components/SettingsModal';
 import { AuthModal } from './components/AuthModal';
 import { apiService } from './services/api';
-import { MessageSquare, ArrowLeft, FileText, CheckCircle2, Shield } from 'lucide-react';
+import { MessageSquare, ArrowLeft, FileText, Shield } from 'lucide-react';
 
 export function App() {
   const [currentDocument, setCurrentDocument] = useState(null);
@@ -31,7 +31,6 @@ export function App() {
   const [documentsList, setDocumentsList] = useState([]);
 
   useEffect(() => {
-    // Check local user session
     const user = apiService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
@@ -56,7 +55,7 @@ export function App() {
       setCurrentDocument(res.document);
       setSummary(res.summary);
       setClauses(res.clauses || []);
-      setModelUsed(res.modelUsed || 'Google Gemini');
+      setModelUsed(res.modelUsed || 'AI Engine');
       setShowOriginal(false);
       loadDocumentsList();
     } catch (err) {
@@ -107,7 +106,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0b0f19] text-slate-100 selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
       {/* Top Navbar */}
       <Navbar
         onNewDocument={handleNewDocument}
@@ -126,9 +125,9 @@ export function App() {
 
         {/* Global Error Banner if any */}
         {error && (
-          <div className="bg-rose-500/10 border border-rose-500/30 text-rose-300 p-4 rounded-xl text-sm mb-6 flex items-center justify-between">
+          <div className="bg-rose-50 border border-rose-200 text-rose-700 p-4 rounded-xl text-sm mb-6 flex items-center justify-between">
             <span>{error}</span>
-            <button onClick={() => setError('')} className="text-xs underline text-rose-400">Dismiss</button>
+            <button onClick={() => setError('')} className="text-xs underline text-rose-800 font-medium">Dismiss</button>
           </div>
         )}
 
@@ -141,7 +140,7 @@ export function App() {
             <div className="mb-4 flex items-center justify-between">
               <button
                 onClick={handleNewDocument}
-                className="inline-flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white transition"
+                className="inline-flex items-center space-x-1.5 text-xs text-slate-600 hover:text-slate-900 font-medium transition"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Upload Another Agreement</span>
@@ -160,18 +159,18 @@ export function App() {
 
             {/* View Mode 1: Original Raw Contract Text */}
             {showOriginal ? (
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl mb-8">
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm mb-8">
+                <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
                   <div className="flex items-center space-x-2">
-                    <FileText className="w-5 h-5 text-indigo-400" />
-                    <h3 className="text-base font-bold text-white">Original Contract Text</h3>
+                    <FileText className="w-5 h-5 text-blue-600" />
+                    <h3 className="text-base font-bold text-slate-900">Original Contract Text</h3>
                   </div>
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-slate-500 font-mono">
                     {currentDocument.raw_text?.length.toLocaleString()} characters
                   </span>
                 </div>
-                <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 max-h-[600px] overflow-y-auto">
-                  <pre className="text-xs sm:text-sm text-slate-300 font-mono whitespace-pre-wrap leading-relaxed">
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 max-h-[600px] overflow-y-auto">
+                  <pre className="text-xs sm:text-sm text-slate-800 font-mono whitespace-pre-wrap leading-relaxed">
                     {currentDocument.raw_text}
                   </pre>
                 </div>
@@ -191,7 +190,7 @@ export function App() {
       {currentDocument && !isChatOpen && (
         <button
           onClick={() => { setInitialChatPrompt(''); setIsChatOpen(true); }}
-          className="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white p-3.5 rounded-full shadow-2xl shadow-cyan-500/30 flex items-center space-x-2 transition-all hover:scale-105"
+          className="fixed bottom-6 right-6 z-40 bg-blue-600 hover:bg-blue-700 text-white p-3.5 rounded-full shadow-lg shadow-blue-500/25 flex items-center space-x-2 transition-all hover:scale-105"
           title="Ask Questions about this Document"
         >
           <MessageSquare className="w-5 h-5" />
@@ -230,14 +229,14 @@ export function App() {
       />
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-6 mt-12 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <Shield className="w-4 h-4 text-indigo-400" />
-            <span className="font-semibold text-slate-400">AI Terms & Conditions Explainer</span>
+            <Shield className="w-4 h-4 text-blue-600" />
+            <span className="font-semibold text-slate-800">AI Terms & Conditions Explainer</span>
           </div>
-          <p className="text-slate-400">
-            Developed by <span className="text-indigo-400 font-semibold">Mahesh</span>
+          <p className="text-slate-600">
+            Developed by <span className="text-blue-600 font-bold">Mahesh</span>
           </p>
         </div>
       </footer>
