@@ -1,7 +1,6 @@
 import React from 'react';
 import { ShieldAlert, AlertTriangle, CheckCircle2, Download, MessageSquare, FileText } from 'lucide-react';
 import { apiService } from '../services/api';
-import { TextWave3D } from './TextWave3D';
 
 export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggleOriginal, showOriginal }) => {
   if (!document) return null;
@@ -89,12 +88,12 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
                 • {new Date(document.upload_date).toLocaleDateString()}
               </span>
             </div>
-            <div>
-              <TextWave3D text={document.file_name} as="h3" mode="words" waveAmplitude={3} className="text-xl sm:text-2xl font-bold text-white tracking-tight" />
-            </div>
-            <div>
-              <TextWave3D text={style.title} as="p" mode="words" waveAmplitude={2} className="text-xs sm:text-sm text-slate-400 mt-1" />
-            </div>
+            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              {document.file_name}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              {style.title}
+            </p>
           </div>
         </div>
 

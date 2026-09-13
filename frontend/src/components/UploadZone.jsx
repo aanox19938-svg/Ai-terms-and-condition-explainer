@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Type, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { sampleTerms } from '../data/sampleTerms';
-import { TextWave3D } from './TextWave3D';
 
 export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
   const [activeTab, setActiveTab] = useState('upload');
@@ -63,33 +62,21 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
   return (
     <div className="relative py-2">
       <div className="max-w-3xl mx-auto relative z-10">
-        {/* Hero Header with 3D Text Wave */}
+        {/* Hero Header */}
         <div className="text-center mb-9 select-none">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3.5 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <TextWave3D text="AI Neural Legal Analysis" waveAmplitude={2} />
+            <span>AI Neural Legal Analysis</span>
           </div>
           <div className="my-2">
-            <TextWave3D
-              text="Deconstruct & Understand Contracts"
-              as="h2"
-              mode="chars"
-              waveAmplitude={5}
-              waveSpeed={2.0}
-              cursorLift={14}
-              className="text-3xl sm:text-5xl font-black tracking-tight text-white glow-title-3d leading-tight"
-            />
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white glow-title-3d leading-tight">
+              Deconstruct & Understand Contracts
+            </h2>
           </div>
           <div>
-            <TextWave3D
-              text="Upload any contract, privacy policy, or End User License Agreement. Our neural engine translates dense legalese into plain English and flags hidden liabilities."
-              as="p"
-              mode="words"
-              waveAmplitude={3}
-              waveSpeed={1.8}
-              cursorLift={8}
-              className="mt-3.5 text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed"
-            />
+            <p className="mt-3.5 text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
+              Upload any contract, privacy policy, or End User License Agreement. Our neural engine translates dense legalese into plain English and flags hidden liabilities.
+            </p>
           </div>
         </div>
 
@@ -164,7 +151,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
                   <CheckCircle2 className="w-9 h-9" />
                 </div>
                 <h4 className="text-base font-bold text-white">
-                  <TextWave3D text={file.name} mode="words" waveAmplitude={2} />
+                  {file.name}
                 </h4>
                 <p className="text-xs text-slate-400 mt-1">{(file.size / 1024).toFixed(1)} KB • Ready for 3D Neural Audit</p>
                 <button
@@ -181,7 +168,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
                   <Upload className="w-8 h-8 animate-bounce [animation-duration:2.5s]" />
                 </div>
                 <h4 className="text-base sm:text-lg font-bold text-white">
-                  <TextWave3D text="Drop your legal agreement here, or browse" mode="words" waveAmplitude={3} cursorLift={8} />
+                  Drop your legal agreement here, or browse
                 </h4>
                 <p className="text-xs text-slate-400 mt-1.5">
                   Supports PDF (.pdf), Microsoft Word (.docx), and Plain Text (.txt) up to 15MB
@@ -210,7 +197,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
         <div className="mt-8 pt-6 border-t border-white/10">
           <div className="text-xs font-semibold text-slate-300 mb-3 flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <TextWave3D text="Or test immediately with pre-configured agreement templates:" mode="words" waveAmplitude={2} />
+            <span>Or test immediately with pre-configured agreement templates:</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {sampleTerms.map((sample) => (
@@ -222,7 +209,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
               >
                 <div>
                   <div className="text-xs font-bold text-white group-hover:text-cyan-300 transition flex items-center gap-2">
-                    <TextWave3D text={sample.title} mode="words" waveAmplitude={2} />
+                    <span>{sample.title}</span>
                     <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-300 font-normal">
                       {sample.badge}
                     </span>
@@ -258,7 +245,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
             ) : (
               <>
                 <Sparkles className="w-5 h-5 text-cyan-200 animate-pulse" />
-                <TextWave3D text="Explain & Audit Terms" mode="words" waveAmplitude={2} />
+                <span>Explain & Audit Terms</span>
               </>
             )}
           </button>

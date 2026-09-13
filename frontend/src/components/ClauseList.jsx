@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AlertCircle, ShieldAlert, AlertTriangle, CheckCircle2, MessageSquare, Filter, Search, Lightbulb } from 'lucide-react';
-import { TextWave3D } from './TextWave3D';
 
 export const ClauseList = ({ clauses, onAskClause }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -58,23 +57,13 @@ export const ClauseList = ({ clauses, onAskClause }) => {
               <div className="w-8 h-8 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.25)]">
                 <AlertCircle className="w-4 h-4" />
               </div>
-              <TextWave3D
-                text={`Flagged Risky Clauses (${filteredClauses.length} of ${clauses.length})`}
-                as="h3"
-                mode="words"
-                waveAmplitude={3}
-                className="text-lg sm:text-xl font-bold text-white tracking-tight"
-              />
+              <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                Flagged Risky Clauses ({filteredClauses.length} of {clauses.length})
+              </h3>
             </div>
-            <div>
-              <TextWave3D
-                text="Clauses impacting privacy, continuous billing, dispute rights, or ownership transfer"
-                as="p"
-                mode="words"
-                waveAmplitude={2}
-                className="text-xs text-slate-400 mt-1"
-              />
-            </div>
+            <p className="text-xs text-slate-400 mt-1">
+              Clauses impacting privacy, continuous billing, dispute rights, or ownership transfer
+            </p>
           </div>
 
           {/* Search input */}
@@ -155,7 +144,7 @@ export const ClauseList = ({ clauses, onAskClause }) => {
                 <div className="flex items-center justify-between gap-3 mb-3.5">
                   <div className="flex items-center space-x-2.5">
                     <span className="text-xs font-bold text-slate-200 px-3 py-1 rounded-lg bg-white/10 border border-white/10">
-                      <TextWave3D text={item.category || 'General Terms'} mode="words" waveAmplitude={1.5} cursorLift={4} />
+                      {item.category || 'General Terms'}
                     </span>
                     {getRiskBadge(item.risk_level)}
                   </div>
@@ -172,31 +161,15 @@ export const ClauseList = ({ clauses, onAskClause }) => {
 
                 {/* Original Clause Quote */}
                 <div className="relative pl-4 border-l-2 border-cyan-400 my-3.5 bg-black/30 p-3.5 rounded-r-xl">
-                  <TextWave3D
-                    text={`"${item.clause_text}"`}
-                    as="p"
-                    mode="words"
-                    waveAmplitude={1.8}
-                    waveSpeed={1.8}
-                    cursorLift={6}
-                    cursorRadius={140}
-                    className="text-xs sm:text-sm text-slate-200 italic font-mono leading-relaxed"
-                  />
+                  <p className="text-xs sm:text-sm text-slate-200 italic font-mono leading-relaxed">
+                    "{item.clause_text}"
+                  </p>
                 </div>
 
                 {/* Plain-English Explanation */}
-                <div className="mt-3.5 text-xs sm:text-sm leading-relaxed bg-black/40 p-4 rounded-xl border border-white/10">
+                <div className="mt-3.5 text-xs sm:text-sm leading-relaxed bg-black/40 p-4 rounded-xl border border-white/10 text-slate-200">
                   <span className="font-bold text-white block mb-1 text-xs uppercase tracking-wider text-cyan-300">Why this matters:</span>
-                  <TextWave3D
-                    text={item.explanation}
-                    as="p"
-                    mode="words"
-                    waveAmplitude={1.8}
-                    waveSpeed={1.8}
-                    cursorLift={6}
-                    cursorRadius={140}
-                    className="text-slate-200"
-                  />
+                  {item.explanation}
                 </div>
 
                 {/* Recommendation */}
@@ -205,15 +178,7 @@ export const ClauseList = ({ clauses, onAskClause }) => {
                     <Lightbulb className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                     <div>
                       <span className="font-bold text-cyan-300 mr-1.5">Recommendation:</span>
-                      <TextWave3D
-                        text={item.recommendation}
-                        as="span"
-                        mode="words"
-                        waveAmplitude={1.8}
-                        waveSpeed={1.8}
-                        cursorLift={6}
-                        cursorRadius={140}
-                      />
+                      <span>{item.recommendation}</span>
                     </div>
                   </div>
                 )}
