@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ai-terms-and-condition-explainer
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: GEMINI_API_KEY
+        sync: false

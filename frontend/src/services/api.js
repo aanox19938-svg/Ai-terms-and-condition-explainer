@@ -1,7 +1,13 @@
-﻿import axios from 'axios';
+import axios from 'axios';
+
+const API_BASE = import.meta.env.VITE_API_URL
+  ? (import.meta.env.VITE_API_URL.replace(/\/+$/, '').endsWith('/api')
+      ? import.meta.env.VITE_API_URL.replace(/\/+$/, '')
+      : `${import.meta.env.VITE_API_URL.replace(/\/+$/, '')}/api`)
+  : '/api';
 
 const api = axios.create({
-  baseURL: '/api'
+  baseURL: API_BASE
 });
 
 // Attach JWT token and custom Gemini API key if present in localStorage
@@ -86,5 +92,5 @@ export const apiService = {
   },
 
   // Report Download
-  downloadReportUrl: (documentId) => `/api/reports/${documentId}`
+  downloadReportUrl: (documentId) => `${API_BASE}/reports/${documentId}`
 };
