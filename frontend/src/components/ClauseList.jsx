@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AlertCircle, ShieldAlert, AlertTriangle, CheckCircle2, MessageSquare, Filter, Search, Lightbulb } from 'lucide-react';
-import { TiltWave3D } from './TiltWave3D';
+import { TextWave3D } from './TextWave3D';
 
 export const ClauseList = ({ clauses, onAskClause }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -50,19 +50,31 @@ export const ClauseList = ({ clauses, onAskClause }) => {
 
   return (
     <div className="mb-8">
-      {/* 3D Wave Floating Header & Filter Bar */}
-      <TiltWave3D maxTilt={6} floatAmplitude={4} floatSpeed={1.0} phase={1.4} className="mb-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-white/10 translate-z-6">
+      {/* Header & Filter Bar */}
+      <div className="mb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-white/10">
           <div>
             <div className="flex items-center space-x-2.5">
               <div className="w-8 h-8 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.25)]">
                 <AlertCircle className="w-4 h-4" />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Flagged Risky Clauses ({filteredClauses.length} of {clauses.length})</h3>
+              <TextWave3D
+                text={`Flagged Risky Clauses (${filteredClauses.length} of ${clauses.length})`}
+                as="h3"
+                mode="words"
+                waveAmplitude={3}
+                className="text-lg sm:text-xl font-bold text-white tracking-tight"
+              />
             </div>
-            <p className="text-xs text-slate-400 mt-1">
-              Clauses impacting privacy, continuous billing, dispute rights, or ownership transfer
-            </p>
+            <div>
+              <TextWave3D
+                text="Clauses impacting privacy, continuous billing, dispute rights, or ownership transfer"
+                as="p"
+                mode="words"
+                waveAmplitude={2}
+                className="text-xs text-slate-400 mt-1"
+              />
+            </div>
           </div>
 
           {/* Search input */}
@@ -79,7 +91,7 @@ export const ClauseList = ({ clauses, onAskClause }) => {
         </div>
 
         {/* Filter Bar */}
-        <div className="py-4 flex flex-wrap items-center gap-2 border-b border-white/10 translate-z-4">
+        <div className="py-4 flex flex-wrap items-center gap-2 border-b border-white/10">
           <div className="flex items-center space-x-1.5 text-xs text-slate-400 mr-2 font-medium">
             <Filter className="w-3.5 h-3.5 text-cyan-400" />
             <span>Category:</span>
@@ -117,9 +129,9 @@ export const ClauseList = ({ clauses, onAskClause }) => {
             ))}
           </div>
         </div>
-      </TiltWave3D>
+      </div>
 
-      {/* 3D Wave Floating Clause Items */}
+      {/* Clause Items */}
       <div className="mt-6 space-y-4">
         {filteredClauses.length === 0 ? (
           <div className="text-center py-12 text-slate-500 text-sm">
@@ -127,16 +139,12 @@ export const ClauseList = ({ clauses, onAskClause }) => {
           </div>
         ) : (
           filteredClauses.map((item, idx) => (
-            <TiltWave3D
+            <div
               key={item.clause_id || idx}
-              maxTilt={5}
-              floatAmplitude={3}
-              floatSpeed={0.9}
-              phase={idx * 0.35}
               className="mb-4"
             >
               <div
-                className={`rounded-2xl border p-5 sm:p-6 transition-all duration-300 hover:scale-[1.005] preserve-3d ${
+                className={`rounded-2xl border p-5 sm:p-6 transition-all duration-300 hover:scale-[1.005] ${
                   item.risk_level === 'High'
                     ? 'bg-rose-950/20 border-rose-500/30 hover:border-rose-500/50 shadow-[0_0_20px_rgba(244,63,94,0.12)]'
                     : item.risk_level === 'Medium'
@@ -145,16 +153,16 @@ export const ClauseList = ({ clauses, onAskClause }) => {
                 }`}
               >
                 <div className="flex items-center justify-between gap-3 mb-3.5">
-                  <div className="flex items-center space-x-2.5 translate-z-6">
+                  <div className="flex items-center space-x-2.5">
                     <span className="text-xs font-bold text-slate-200 px-3 py-1 rounded-lg bg-white/10 border border-white/10">
-                      {item.category || 'General Terms'}
+                      <TextWave3D text={item.category || 'General Terms'} mode="words" waveAmplitude={1.5} cursorLift={4} />
                     </span>
                     {getRiskBadge(item.risk_level)}
                   </div>
 
                   <button
                     onClick={() => onAskClause(item)}
-                    className="flex items-center space-x-1.5 text-xs text-cyan-300 hover:text-cyan-200 font-semibold px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 transition-all shadow-sm translate-z-8"
+                    className="flex items-center space-x-1.5 text-xs text-cyan-300 hover:text-cyan-200 font-semibold px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 transition-all shadow-sm"
                     title="Ask the AI chatbot about this specific clause"
                   >
                     <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
@@ -163,30 +171,54 @@ export const ClauseList = ({ clauses, onAskClause }) => {
                 </div>
 
                 {/* Original Clause Quote */}
-                <div className="relative pl-4 border-l-2 border-cyan-400 my-3.5 bg-black/30 p-3.5 rounded-r-xl translate-z-4">
-                  <p className="text-xs sm:text-sm text-slate-200 italic font-mono leading-relaxed">
-                    "{item.clause_text}"
-                  </p>
+                <div className="relative pl-4 border-l-2 border-cyan-400 my-3.5 bg-black/30 p-3.5 rounded-r-xl">
+                  <TextWave3D
+                    text={`"${item.clause_text}"`}
+                    as="p"
+                    mode="words"
+                    waveAmplitude={1.8}
+                    waveSpeed={1.8}
+                    cursorLift={6}
+                    cursorRadius={140}
+                    className="text-xs sm:text-sm text-slate-200 italic font-mono leading-relaxed"
+                  />
                 </div>
 
                 {/* Plain-English Explanation */}
-                <div className="mt-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed bg-black/40 p-4 rounded-xl border border-white/10 translate-z-4">
+                <div className="mt-3.5 text-xs sm:text-sm leading-relaxed bg-black/40 p-4 rounded-xl border border-white/10">
                   <span className="font-bold text-white block mb-1 text-xs uppercase tracking-wider text-cyan-300">Why this matters:</span>
-                  {item.explanation}
+                  <TextWave3D
+                    text={item.explanation}
+                    as="p"
+                    mode="words"
+                    waveAmplitude={1.8}
+                    waveSpeed={1.8}
+                    cursorLift={6}
+                    cursorRadius={140}
+                    className="text-slate-200"
+                  />
                 </div>
 
                 {/* Recommendation */}
                 {item.recommendation && (
-                  <div className="mt-3 flex items-start space-x-2.5 text-xs text-cyan-200 bg-cyan-950/30 border border-cyan-500/30 p-3.5 rounded-xl translate-z-6">
+                  <div className="mt-3 flex items-start space-x-2.5 text-xs text-cyan-200 bg-cyan-950/30 border border-cyan-500/30 p-3.5 rounded-xl">
                     <Lightbulb className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold text-cyan-300">Recommendation: </span>
-                      {item.recommendation}
+                      <span className="font-bold text-cyan-300 mr-1.5">Recommendation:</span>
+                      <TextWave3D
+                        text={item.recommendation}
+                        as="span"
+                        mode="words"
+                        waveAmplitude={1.8}
+                        waveSpeed={1.8}
+                        cursorLift={6}
+                        cursorRadius={140}
+                      />
                     </div>
                   </div>
                 )}
               </div>
-            </TiltWave3D>
+            </div>
           ))
         )}
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, CheckCircle, Sparkles, Copy, Check } from 'lucide-react';
-import { TiltWave3D } from './TiltWave3D';
+import { TextWave3D } from './TextWave3D';
 
 export const SummarySection = ({ summary, modelUsed }) => {
   const [copied, setCopied] = useState(false);
@@ -14,15 +14,29 @@ export const SummarySection = ({ summary, modelUsed }) => {
   };
 
   return (
-    <TiltWave3D maxTilt={6} floatAmplitude={4} floatSpeed={1.0} phase={1.0} className="mb-8">
-      <div className="flex items-center justify-between pb-5 mb-5 border-b border-white/10 translate-z-8">
+    <div className="mb-8">
+      <div className="flex items-center justify-between pb-5 mb-5 border-b border-white/10">
         <div className="flex items-center space-x-3.5">
           <div className="w-10 h-10 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.25)]">
             <BookOpen className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Executive Plain-Language Summary</h3>
-            <p className="text-xs text-slate-400">Translated from dense legal language into plain everyday consumer terms</p>
+            <TextWave3D
+              text="Executive Plain-Language Summary"
+              as="h3"
+              mode="words"
+              waveAmplitude={3}
+              className="text-lg sm:text-xl font-bold text-white tracking-tight"
+            />
+            <div>
+              <TextWave3D
+                text="Translated from dense legal language into plain everyday consumer terms"
+                as="p"
+                mode="words"
+                waveAmplitude={2}
+                className="text-xs text-slate-400"
+              />
+            </div>
           </div>
         </div>
 
@@ -43,28 +57,50 @@ export const SummarySection = ({ summary, modelUsed }) => {
         </div>
       </div>
 
-      {/* Main summary text */}
-      <div className="text-slate-200 text-sm sm:text-base leading-relaxed whitespace-pre-line mb-6 font-normal translate-z-4">
-        {summary.summary_text}
+      {/* Main summary text with word-level 3D wave */}
+      <div className="text-slate-200 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+        {summary.summary_text && summary.summary_text.split('\n\n').map((paragraph, pIdx) => (
+          <div key={pIdx} className={pIdx > 0 ? 'mt-4' : ''}>
+            <TextWave3D
+              text={paragraph}
+              as="p"
+              mode="words"
+              waveAmplitude={1.8}
+              waveSpeed={1.6}
+              cursorLift={6}
+              cursorRadius={140}
+              className="leading-relaxed"
+            />
+          </div>
+        ))}
       </div>
 
       {/* Bulleted Key Takeaways */}
       {summary.key_takeaways && summary.key_takeaways.length > 0 && (
-        <div className="bg-black/35 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-md translate-z-6">
+        <div className="bg-black/35 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-md">
           <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-4 flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-cyan-400" />
-            <span>Key User Rights & Obligations</span>
+            <TextWave3D text="Key User Rights & Obligations" mode="words" waveAmplitude={2} />
           </h4>
           <ul className="space-y-3">
             {summary.key_takeaways.map((point, index) => (
               <li key={index} className="flex items-start space-x-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 mt-1.5 shrink-0 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
-                <span>{point}</span>
+                <TextWave3D
+                  text={point}
+                  as="span"
+                  mode="words"
+                  waveAmplitude={1.8}
+                  waveSpeed={1.8}
+                  cursorLift={6}
+                  cursorRadius={140}
+                  className="text-slate-300"
+                />
               </li>
             ))}
           </ul>
         </div>
       )}
-    </TiltWave3D>
+    </div>
   );
 };
