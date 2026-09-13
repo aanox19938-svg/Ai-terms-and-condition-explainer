@@ -60,7 +60,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
   };
 
   return (
-    <div className="glass-card rounded-3xl p-7 sm:p-11 relative overflow-hidden">
+    <div className="relative py-2">
       <div className="max-w-3xl mx-auto relative z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3 shadow-[0_0_15px_rgba(6,182,212,0.2)]">

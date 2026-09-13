@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ShieldAlert, AlertTriangle, CheckCircle2, Download, MessageSquare, FileText } from 'lucide-react';
 import { apiService } from '../services/api';
 
@@ -46,7 +46,7 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
   };
 
   return (
-    <div className="glass-card rounded-3xl p-6 sm:p-8 mb-8 relative overflow-hidden transition-all duration-300">
+    <div className="mb-8 relative transition-all duration-300">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-6 relative z-10">
         
         {/* Left: Overall Risk Gauge & Info */}

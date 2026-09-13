@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { BookOpen, CheckCircle, Sparkles, Copy, Check } from 'lucide-react';
 
 export const SummarySection = ({ summary, modelUsed }) => {
@@ -13,7 +13,7 @@ export const SummarySection = ({ summary, modelUsed }) => {
   };
 
   return (
-    <div className="glass-card rounded-3xl p-6 sm:p-8 mb-8 shadow-xl">
+    <div className="mb-8">
       <div className="flex items-center justify-between pb-5 mb-5 border-b border-white/10">
         <div className="flex items-center space-x-3.5">
           <div className="w-10 h-10 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.25)]">

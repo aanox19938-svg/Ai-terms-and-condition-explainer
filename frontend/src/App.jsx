@@ -171,7 +171,7 @@ export function App() {
 
             {/* View Mode 1: Original Raw Contract Text */}
             {showOriginal ? (
-              <div className="glass-card rounded-3xl p-6 sm:p-8 mb-8 shadow-xl">
+              <div className="mb-8">
                 <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
                   <div className="flex items-center space-x-2.5">
                     <FileText className="w-5 h-5 text-cyan-400" />

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { AlertCircle, ShieldAlert, AlertTriangle, CheckCircle2, MessageSquare, Filter, Search, Lightbulb } from 'lucide-react';
 
 export const ClauseList = ({ clauses, onAskClause }) => {
@@ -48,7 +48,7 @@ export const ClauseList = ({ clauses, onAskClause }) => {
   };
 
   return (
-    <div className="glass-card rounded-3xl p-6 sm:p-8 mb-8 shadow-xl">
+    <div className="mb-8">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-white/10">
         <div>
