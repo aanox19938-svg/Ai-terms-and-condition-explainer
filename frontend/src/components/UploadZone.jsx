@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Upload, Type, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { sampleTerms } from '../data/sampleTerms';
 
@@ -61,10 +61,6 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
 
   return (
     <div className="glass-card rounded-3xl p-7 sm:p-11 relative overflow-hidden">
-      {/* Background ambient lighting orbs */}
-      <div className="absolute -top-32 -right-32 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-      <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
       <div className="max-w-3xl mx-auto relative z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
@@ -80,7 +76,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
         </div>
 
         {/* Tab switcher */}
-        <div className="flex bg-black/40 p-1.5 rounded-2xl border border-white/10 mb-7 max-w-md mx-auto backdrop-blur-md">
+        <div className="flex bg-white/[0.04] p-1.5 rounded-2xl border border-white/10 mb-7 max-w-md mx-auto backdrop-blur-sm">
           <button
             type="button"
             onClick={() => setActiveTab('upload')}
@@ -117,7 +113,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
             placeholder="e.g. Netflix Subscription Terms, Instagram Privacy Policy..."
             value={documentTitle}
             onChange={(e) => setDocumentTitle(e.target.value)}
-            className="w-full bg-black/35 border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-md transition-all"
+            className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-sm transition-all"
           />
         </div>
 
@@ -181,7 +177,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
               placeholder="Paste the Terms of Service, Privacy Policy, or End User License Agreement text here..."
-              className="w-full bg-black/35 border border-white/10 rounded-2xl p-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 font-mono transition-all resize-y"
+              className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-sm font-mono transition-all resize-y"
             />
             <div className="flex justify-between text-xs text-slate-400 px-1">
               <span>Supports contracts of any length</span>

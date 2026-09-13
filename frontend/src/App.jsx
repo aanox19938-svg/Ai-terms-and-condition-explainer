@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThreeCanvas } from './components/ThreeCanvas';
 import { Navbar } from './components/Navbar';
 import { DisclaimerBanner } from './components/DisclaimerBanner';
@@ -109,13 +109,13 @@ export function App() {
   return (
     <div className="min-h-screen relative flex flex-col bg-[#060814] text-slate-100 selection:bg-cyan-500 selection:text-black overflow-x-hidden">
       
+      {/* Ambient background glow gradient mesh (subtle) */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-cyan-600/10 via-indigo-600/10 to-fuchsia-600/10 rounded-full blur-[140px] opacity-25"></div>
+      </div>
+
       {/* Interactive 3D Canvas Background */}
       <ThreeCanvas />
-
-      {/* Ambient background glow gradient mesh */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-cyan-600/10 via-indigo-600/10 to-fuchsia-600/10 rounded-full blur-[140px] opacity-70"></div>
-      </div>
 
       {/* Top Navbar */}
       <div className="relative z-20">

@@ -41,46 +41,48 @@ export const ThreeCanvas = () => {
 
     // 5. Central 3D Floating Geometry: Dual Layer Holographic Polyhedron
     // Outer wireframe
-    const outerGeo = new THREE.IcosahedronGeometry(7, 1);
+    const outerGeo = new THREE.IcosahedronGeometry(7.2, 1);
     const outerMat = new THREE.MeshStandardMaterial({
       color: 0x38bdf8,
       wireframe: true,
-      roughness: 0.2,
-      metalness: 0.8,
+      roughness: 0.1,
+      metalness: 0.9,
       transparent: true,
-      opacity: 0.45
+      opacity: 0.75
     });
     const outerMesh = new THREE.Mesh(outerGeo, outerMat);
     scene.add(outerMesh);
 
     // Inner translucent faceted crystal core
-    const innerGeo = new THREE.IcosahedronGeometry(4.8, 0);
+    const innerGeo = new THREE.IcosahedronGeometry(5.0, 0);
     const innerMat = new THREE.MeshPhysicalMaterial({
-      color: 0x6366f1,
-      emissive: 0x312e81,
+      color: 0x818cf8,
+      emissive: 0x4f46e5,
+      emissiveIntensity: 0.8,
       roughness: 0.1,
-      metalness: 0.9,
-      transmission: 0.7,
+      metalness: 0.85,
+      transmission: 0.6,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.75,
       wireframe: false
     });
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
     scene.add(innerMesh);
 
-    // Subtle orbiting rings
-    const ringGeo = new THREE.TorusGeometry(10, 0.05, 16, 100);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0x818cf8, transparent: true, opacity: 0.35 });
-    const ringMesh1 = new THREE.Mesh(ringGeo, ringMat);
+    // Glowing orbiting rings
+    const ringGeo = new THREE.TorusGeometry(10.5, 0.08, 16, 120);
+    const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.55 });
+    const ringMesh1 = new THREE.Mesh(ringGeo, ringMat1);
     ringMesh1.rotation.x = Math.PI / 3;
     scene.add(ringMesh1);
 
-    const ringMesh2 = new THREE.Mesh(ringGeo, ringMat);
+    const ringMat2 = new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.55 });
+    const ringMesh2 = new THREE.Mesh(ringGeo, ringMat2);
     ringMesh2.rotation.y = Math.PI / 4;
     scene.add(ringMesh2);
 
-    // 6. Particle Starfield Dust
-    const particleCount = 700;
+    // 6. Particle Starfield Dust (1,200 dynamic cyber stars)
+    const particleCount = 1200;
     const particleGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -90,9 +92,9 @@ export const ThreeCanvas = () => {
     const colorC = new THREE.Color(0x818cf8); // Indigo
 
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 80;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+      positions[i * 3] = (Math.random() - 0.5) * 90;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 90;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 60;
 
       const mixed = Math.random() > 0.5 ? colorA.clone().lerp(colorB, Math.random()) : colorC;
       colors[i * 3] = mixed.r;
@@ -104,10 +106,10 @@ export const ThreeCanvas = () => {
     particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const particleMat = new THREE.PointsMaterial({
-      size: 0.18,
+      size: 0.22,
       vertexColors: true,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.85,
       blending: THREE.AdditiveBlending
     });
     const particles = new THREE.Points(particleGeo, particleMat);
@@ -186,7 +188,8 @@ export const ThreeCanvas = () => {
       innerGeo.dispose();
       innerMat.dispose();
       ringGeo.dispose();
-      ringMat.dispose();
+      ringMat1.dispose();
+      ringMat2.dispose();
       particleGeo.dispose();
       particleMat.dispose();
       renderer.dispose();
@@ -196,7 +199,7 @@ export const ThreeCanvas = () => {
   return (
     <div
       ref={mountRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-85"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
       aria-hidden="true"
     />
   );
