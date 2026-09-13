@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, CheckCircle, Sparkles, Copy, Check } from 'lucide-react';
+import { TiltWave3D } from './TiltWave3D';
 
 export const SummarySection = ({ summary, modelUsed }) => {
   const [copied, setCopied] = useState(false);
@@ -13,8 +14,8 @@ export const SummarySection = ({ summary, modelUsed }) => {
   };
 
   return (
-    <div className="mb-8">
-      <div className="flex items-center justify-between pb-5 mb-5 border-b border-white/10">
+    <TiltWave3D maxTilt={6} floatAmplitude={4} floatSpeed={1.0} phase={1.0} className="mb-8">
+      <div className="flex items-center justify-between pb-5 mb-5 border-b border-white/10 translate-z-8">
         <div className="flex items-center space-x-3.5">
           <div className="w-10 h-10 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.25)]">
             <BookOpen className="w-5 h-5" />
@@ -43,13 +44,13 @@ export const SummarySection = ({ summary, modelUsed }) => {
       </div>
 
       {/* Main summary text */}
-      <div className="text-slate-200 text-sm sm:text-base leading-relaxed whitespace-pre-line mb-6 font-normal">
+      <div className="text-slate-200 text-sm sm:text-base leading-relaxed whitespace-pre-line mb-6 font-normal translate-z-4">
         {summary.summary_text}
       </div>
 
       {/* Bulleted Key Takeaways */}
       {summary.key_takeaways && summary.key_takeaways.length > 0 && (
-        <div className="bg-black/35 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-md">
+        <div className="bg-black/35 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-md translate-z-6">
           <h4 className="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-4 flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-cyan-400" />
             <span>Key User Rights & Obligations</span>
@@ -64,6 +65,6 @@ export const SummarySection = ({ summary, modelUsed }) => {
           </ul>
         </div>
       )}
-    </div>
+    </TiltWave3D>
   );
 };

@@ -115,7 +115,50 @@ export const ThreeCanvas = () => {
     const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
-    // 7. Mouse interaction parallax
+    // 7. Interactive 3D Cyber Wave Grid (Flowing beneath hero, audits, and terms)
+    const waveCols = 55;
+    const waveRows = 40;
+    const waveCount = waveCols * waveRows;
+    const waveGeo = new THREE.BufferGeometry();
+    const wavePos = new Float32Array(waveCount * 3);
+    const waveColors = new Float32Array(waveCount * 3);
+
+    const waveColorCyan = new THREE.Color(0x38bdf8);
+    const waveColorPurple = new THREE.Color(0xa855f7);
+
+    for (let ix = 0; ix < waveCols; ix++) {
+      for (let iz = 0; iz < waveRows; iz++) {
+        const i = ix * waveRows + iz;
+        const x = (ix - waveCols / 2) * 2.2;
+        const z = (iz - waveRows / 2) * 2.0 - 5;
+        const y = -14;
+
+        wavePos[i * 3] = x;
+        wavePos[i * 3 + 1] = y;
+        wavePos[i * 3 + 2] = z;
+
+        const ratio = (ix / waveCols + iz / waveRows) * 0.5;
+        const col = waveColorCyan.clone().lerp(waveColorPurple, ratio);
+        waveColors[i * 3] = col.r;
+        waveColors[i * 3 + 1] = col.g;
+        waveColors[i * 3 + 2] = col.b;
+      }
+    }
+
+    waveGeo.setAttribute('position', new THREE.BufferAttribute(wavePos, 3));
+    waveGeo.setAttribute('color', new THREE.BufferAttribute(waveColors, 3));
+
+    const waveMat = new THREE.PointsMaterial({
+      size: 0.28,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending
+    });
+    const waveMesh = new THREE.Points(waveGeo, waveMat);
+    scene.add(waveMesh);
+
+    // 8. Mouse interaction parallax
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -170,6 +213,31 @@ export const ThreeCanvas = () => {
       particles.rotation.y = elapsed * 0.03;
       particles.rotation.x = elapsed * 0.015;
 
+      // Animate 3D Cyber Wave Grid with traveling waves + mouse cursor ripple
+      const wavePositions = waveGeo.attributes.position.array;
+      const mouseWorldX = targetX * 35;
+      const mouseWorldZ = targetY * 30;
+
+      for (let ix = 0; ix < waveCols; ix++) {
+        for (let iz = 0; iz < waveRows; iz++) {
+          const i = ix * waveRows + iz;
+          const x = wavePositions[i * 3];
+          const z = wavePositions[i * 3 + 2];
+
+          // Dynamic wave equation with cursor ripple
+          const distToMouse = Math.hypot(x - mouseWorldX, z - mouseWorldZ);
+          const mouseRipple = Math.sin(Math.max(0, 16 - distToMouse) * 0.45) * 2.2;
+
+          const waveHeight =
+            Math.sin(x * 0.16 + elapsed * 2.0) * 2.0 +
+            Math.cos(z * 0.2 + elapsed * 1.6) * 1.8 +
+            mouseRipple;
+
+          wavePositions[i * 3 + 1] = -14 + waveHeight;
+        }
+      }
+      waveGeo.attributes.position.needsUpdate = true;
+
       renderer.render(scene, camera);
     };
 
@@ -192,6 +260,8 @@ export const ThreeCanvas = () => {
       ringMat2.dispose();
       particleGeo.dispose();
       particleMat.dispose();
+      waveGeo.dispose();
+      waveMat.dispose();
       renderer.dispose();
     };
   }, []);

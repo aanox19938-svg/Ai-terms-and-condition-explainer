@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShieldAlert, AlertTriangle, CheckCircle2, Download, MessageSquare, FileText } from 'lucide-react';
 import { apiService } from '../services/api';
+import { TiltWave3D } from './TiltWave3D';
 
 export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggleOriginal, showOriginal }) => {
   if (!document) return null;
@@ -46,13 +47,13 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
   };
 
   return (
-    <div className="mb-8 relative transition-all duration-300">
+    <TiltWave3D maxTilt={7} floatAmplitude={5} floatSpeed={1.0} phase={0.5} className="mb-8 relative">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-6 relative z-10">
         
         {/* Left: Overall Risk Gauge & Info */}
         <div className="flex items-center space-x-6 w-full lg:w-auto">
           {/* 3D-styled Circular Score Dial with Neon Glow */}
-          <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center shrink-0">
+          <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center shrink-0 translate-z-10 transition-transform">
             <div className="absolute inset-0 rounded-full bg-cyan-500/10 blur-xl"></div>
             <svg className="w-full h-full transform -rotate-90 drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" viewBox="0 0 36 36">
               <path
@@ -72,14 +73,14 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
               />
             </svg>
-            <div className="absolute flex flex-col items-center justify-center text-center">
+            <div className="absolute flex flex-col items-center justify-center text-center translate-z-12">
               <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">{score}</span>
               <span className="text-[10px] uppercase font-bold text-slate-400">Score</span>
             </div>
           </div>
 
           {/* Details */}
-          <div>
+          <div className="translate-z-6">
             <div className="flex items-center space-x-2.5 mb-1.5">
               <span className={`px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider border ${style.bg}`}>
                 {level} Risk
@@ -94,7 +95,7 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
         </div>
 
         {/* Center: Stat Badges */}
-        <div className="flex items-center space-x-3.5 w-full lg:w-auto justify-around lg:justify-start">
+        <div className="flex items-center space-x-3.5 w-full lg:w-auto justify-around lg:justify-start translate-z-6">
           <div className="px-5 py-3 rounded-2xl bg-black/40 border border-white/10 text-center backdrop-blur-md">
             <span className="block text-2xl font-black text-rose-400">{highCount}</span>
             <span className="text-[11px] text-slate-400 font-medium">High Risk</span>
@@ -110,13 +111,13 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
         </div>
 
         {/* Right: Actions */}
-        <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto justify-end">
+        <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto justify-end translate-z-8">
           <button
             onClick={onToggleOriginal}
             className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition-all duration-300 ${
               showOriginal
-                ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white border-transparent shadow-[0_0_15px_rgba(6,182,212,0.4)]'
-                : 'bg-white/[0.04] text-slate-200 hover:text-white hover:bg-white/[0.08] border-white/10'
+                ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.25)]'
+                : 'bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 hover:text-white border-white/10 hover:border-white/20'
             }`}
             title="Toggle between AI Summary and Raw Agreement Text"
           >
@@ -143,6 +144,6 @@ export const RiskScoreCard = ({ document, summary, clauses, onOpenChat, onToggle
         </div>
 
       </div>
-    </div>
+    </TiltWave3D>
   );
 };

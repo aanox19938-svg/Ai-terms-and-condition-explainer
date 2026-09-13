@@ -10,6 +10,7 @@ import { ChatDrawer } from './components/ChatDrawer';
 import { HistoryModal } from './components/HistoryModal';
 import { SettingsModal } from './components/SettingsModal';
 import { AuthModal } from './components/AuthModal';
+import { TiltWave3D } from './components/TiltWave3D';
 import { apiService } from './services/api';
 import { MessageSquare, ArrowLeft, FileText, Shield, Sparkles } from 'lucide-react';
 
@@ -171,8 +172,8 @@ export function App() {
 
             {/* View Mode 1: Original Raw Contract Text */}
             {showOriginal ? (
-              <div className="mb-8">
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+              <TiltWave3D maxTilt={5} floatAmplitude={4} floatSpeed={1.0} phase={1.5} className="mb-8">
+                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10 translate-z-6">
                   <div className="flex items-center space-x-2.5">
                     <FileText className="w-5 h-5 text-cyan-400" />
                     <h3 className="text-base font-bold text-white">Original Contract Text</h3>
@@ -181,12 +182,12 @@ export function App() {
                     {currentDocument.raw_text?.length.toLocaleString()} characters
                   </span>
                 </div>
-                <div className="bg-black/45 p-5 rounded-2xl border border-white/10 max-h-[600px] overflow-y-auto">
+                <div className="bg-black/45 p-5 rounded-2xl border border-white/10 max-h-[600px] overflow-y-auto translate-z-4">
                   <pre className="text-xs sm:text-sm text-slate-300 font-mono whitespace-pre-wrap leading-relaxed">
                     {currentDocument.raw_text}
                   </pre>
                 </div>
-              </div>
+              </TiltWave3D>
             ) : (
               /* View Mode 2: Plain-English Summary & Flagged Clauses */
               <>

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Type, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { sampleTerms } from '../data/sampleTerms';
+import { TiltWave3D } from './TiltWave3D';
 
 export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
   const [activeTab, setActiveTab] = useState('upload');
@@ -62,132 +63,138 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
   return (
     <div className="relative py-2">
       <div className="max-w-3xl mx-auto relative z-10">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+        {/* 3D Cursor-Reactive Wave Floating Hero Header */}
+        <TiltWave3D maxTilt={9} floatAmplitude={6} floatSpeed={1.0} phase={0} className="text-center mb-9 select-none">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3.5 shadow-[0_0_15px_rgba(6,182,212,0.2)] translate-z-10 transition-transform">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
             <span>AI Neural Legal Analysis</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-white via-cyan-100 to-indigo-200 bg-clip-text text-transparent glow-text-cyan">
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-cyan-100 to-indigo-200 bg-clip-text text-transparent glow-title-3d translate-z-12 transition-transform leading-tight">
             Deconstruct & Understand Contracts
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-3.5 text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed translate-z-6 transition-transform">
             Upload any contract, privacy policy, or End User License Agreement. Our neural engine translates dense legalese into plain English and flags hidden liabilities.
           </p>
-        </div>
+        </TiltWave3D>
 
-        {/* Tab switcher */}
-        <div className="flex bg-white/[0.04] p-1.5 rounded-2xl border border-white/10 mb-7 max-w-md mx-auto backdrop-blur-sm">
-          <button
-            type="button"
-            onClick={() => setActiveTab('upload')}
-            className={`flex-1 flex items-center justify-center space-x-2 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-300 ${
-              activeTab === 'upload'
-                ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-[0_0_18px_rgba(6,182,212,0.35)]'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Upload className="w-4 h-4" />
-            <span>Upload Document</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('paste')}
-            className={`flex-1 flex items-center justify-center space-x-2 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-300 ${
-              activeTab === 'paste'
-                ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-[0_0_18px_rgba(6,182,212,0.35)]'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Type className="w-4 h-4" />
-            <span>Paste Raw Text</span>
-          </button>
-        </div>
+        {/* 3D Wave Floating Tabs & Document Controls */}
+        <TiltWave3D maxTilt={6} floatAmplitude={4} floatSpeed={1.1} phase={1.2} className="mb-6">
+          {/* Tab switcher */}
+          <div className="flex bg-white/[0.04] p-1.5 rounded-2xl border border-white/10 mb-7 max-w-md mx-auto backdrop-blur-sm">
+            <button
+              type="button"
+              onClick={() => setActiveTab('upload')}
+              className={`flex-1 flex items-center justify-center space-x-2 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-300 ${
+                activeTab === 'upload'
+                  ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-[0_0_18px_rgba(6,182,212,0.35)]'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Upload className="w-4 h-4" />
+              <span>Upload Document</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('paste')}
+              className={`flex-1 flex items-center justify-center space-x-2 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-300 ${
+                activeTab === 'paste'
+                  ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-[0_0_18px_rgba(6,182,212,0.35)]'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Type className="w-4 h-4" />
+              <span>Paste Raw Text</span>
+            </button>
+          </div>
 
-        {/* Document Title input */}
-        <div className="mb-5">
-          <label className="block text-xs font-semibold text-slate-300 mb-2 tracking-wide">
-            Document Title (Optional)
-          </label>
-          <input
-            type="text"
-            placeholder="e.g. Netflix Subscription Terms, Instagram Privacy Policy..."
-            value={documentTitle}
-            onChange={(e) => setDocumentTitle(e.target.value)}
-            className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-sm transition-all"
-          />
-        </div>
-
-        {/* Upload Mode */}
-        {activeTab === 'upload' ? (
-          <div
-            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={handleFileDrop}
-            onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded-3xl p-8 sm:p-12 text-center cursor-pointer transition-all duration-300 ${
-              dragOver
-                ? 'border-cyan-400 bg-cyan-500/[0.08] scale-[1.01] shadow-[0_0_30px_rgba(6,182,212,0.3)]'
-                : file
-                ? 'border-emerald-500/60 bg-emerald-500/[0.06] shadow-[0_0_25px_rgba(16,185,129,0.2)]'
-                : 'border-white/15 hover:border-cyan-400/60 bg-white/[0.02] hover:bg-cyan-500/[0.04] hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]'
-            }`}
-          >
+          {/* Document Title input */}
+          <div className="mb-5">
+            <label className="block text-xs font-semibold text-slate-300 mb-2 tracking-wide">
+              Document Title (Optional)
+            </label>
             <input
-              type="file"
-              ref={fileInputRef}
-              onChange={(e) => e.target.files && handleFileSelected(e.target.files[0])}
-              accept=".pdf,.docx,.txt"
-              className="hidden"
+              type="text"
+              placeholder="e.g. Netflix Subscription Terms, Instagram Privacy Policy..."
+              value={documentTitle}
+              onChange={(e) => setDocumentTitle(e.target.value)}
+              className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-sm transition-all"
             />
-
-            {file ? (
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-3.5 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                  <CheckCircle2 className="w-9 h-9" />
-                </div>
-                <h4 className="text-base font-bold text-white">{file.name}</h4>
-                <p className="text-xs text-slate-400 mt-1">{(file.size / 1024).toFixed(1)} KB • Ready for 3D Neural Audit</p>
-                <button
-                  type="button"
-                  onClick={(e) => { e.stopPropagation(); setFile(null); }}
-                  className="mt-3.5 text-xs text-rose-400 hover:text-rose-300 hover:underline font-semibold"
-                >
-                  Choose Different File
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 shadow-[0_0_25px_rgba(6,182,212,0.25)] group-hover:scale-105 transition-transform duration-300">
-                  <Upload className="w-8 h-8 animate-bounce [animation-duration:2.5s]" />
-                </div>
-                <h4 className="text-base sm:text-lg font-bold text-white">
-                  Drop your legal agreement here, or <span className="text-cyan-400 underline">browse</span>
-                </h4>
-                <p className="text-xs text-slate-400 mt-1.5">
-                  Supports PDF (.pdf), Microsoft Word (.docx), and Plain Text (.txt) up to 15MB
-                </p>
-              </div>
-            )}
           </div>
-        ) : (
-          /* Paste Mode */
-          <div className="space-y-2">
-            <textarea
-              rows={8}
-              value={rawText}
-              onChange={(e) => setRawText(e.target.value)}
-              placeholder="Paste the Terms of Service, Privacy Policy, or End User License Agreement text here..."
-              className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-sm font-mono transition-all resize-y"
-            />
-            <div className="flex justify-between text-xs text-slate-400 px-1">
-              <span>Supports contracts of any length</span>
-              <span className="font-mono">{rawText.length.toLocaleString()} characters</span>
+        </TiltWave3D>
+
+        {/* 3D Wave Floating Upload / Input Zone */}
+        <TiltWave3D maxTilt={6} floatAmplitude={4} floatSpeed={1.0} phase={1.8} className="mb-6">
+          {activeTab === 'upload' ? (
+            <div
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={handleFileDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className={`border-2 border-dashed rounded-3xl p-8 sm:p-12 text-center cursor-pointer transition-all duration-300 preserve-3d ${
+                dragOver
+                  ? 'border-cyan-400 bg-cyan-500/[0.08] scale-[1.01] shadow-[0_0_30px_rgba(6,182,212,0.3)]'
+                  : file
+                  ? 'border-emerald-500/60 bg-emerald-500/[0.06] shadow-[0_0_25px_rgba(16,185,129,0.2)]'
+                  : 'border-white/15 hover:border-cyan-400/60 bg-white/[0.02] hover:bg-cyan-500/[0.04] hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]'
+              }`}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={(e) => e.target.files && handleFileSelected(e.target.files[0])}
+                accept=".pdf,.docx,.txt"
+                className="hidden"
+              />
+
+              {file ? (
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-3.5 shadow-[0_0_20px_rgba(16,185,129,0.3)] translate-z-8 transition-transform">
+                    <CheckCircle2 className="w-9 h-9" />
+                  </div>
+                  <h4 className="text-base font-bold text-white translate-z-6">{file.name}</h4>
+                  <p className="text-xs text-slate-400 mt-1 translate-z-4">{(file.size / 1024).toFixed(1)} KB • Ready for 3D Neural Audit</p>
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setFile(null); }}
+                    className="mt-3.5 text-xs text-rose-400 hover:text-rose-300 hover:underline font-semibold translate-z-6"
+                  >
+                    Choose Different File
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 shadow-[0_0_25px_rgba(6,182,212,0.25)] group-hover:scale-105 transition-transform duration-300 translate-z-8">
+                    <Upload className="w-8 h-8 animate-bounce [animation-duration:2.5s]" />
+                  </div>
+                  <h4 className="text-base sm:text-lg font-bold text-white translate-z-6">
+                    Drop your legal agreement here, or <span className="text-cyan-400 underline">browse</span>
+                  </h4>
+                  <p className="text-xs text-slate-400 mt-1.5 translate-z-4">
+                    Supports PDF (.pdf), Microsoft Word (.docx), and Plain Text (.txt) up to 15MB
+                  </p>
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          ) : (
+            /* Paste Mode */
+            <div className="space-y-2">
+              <textarea
+                rows={8}
+                value={rawText}
+                onChange={(e) => setRawText(e.target.value)}
+                placeholder="Paste the Terms of Service, Privacy Policy, or End User License Agreement text here..."
+                className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400/80 focus:ring-2 focus:ring-cyan-500/20 backdrop-blur-sm font-mono transition-all resize-y"
+              />
+              <div className="flex justify-between text-xs text-slate-400 px-1">
+                <span>Supports contracts of any length</span>
+                <span className="font-mono">{rawText.length.toLocaleString()} characters</span>
+              </div>
+            </div>
+          )}
+        </TiltWave3D>
 
-        {/* Preset Sample Quick Loader */}
-        <div className="mt-8 pt-6 border-t border-white/10">
+        {/* Preset Sample Quick Loader with 3D Wave */}
+        <TiltWave3D maxTilt={5} floatAmplitude={3} floatSpeed={0.9} phase={2.6} className="mt-8 pt-6 border-t border-white/10">
           <div className="text-xs font-semibold text-slate-300 mb-3 flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
             <span>Or test immediately with pre-configured agreement templates:</span>
@@ -213,15 +220,15 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
               </button>
             ))}
           </div>
-        </div>
+        </TiltWave3D>
 
-        {/* Submit Action */}
-        <div className="mt-8 flex justify-center">
+        {/* Submit Action with 3D Wave Tilt */}
+        <TiltWave3D maxTilt={7} floatAmplitude={4} floatSpeed={1.2} phase={3.4} className="mt-8 flex justify-center">
           <button
             type="button"
             disabled={isAnalyzing}
             onClick={handleSubmit}
-            className={`w-full sm:w-auto px-10 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center space-x-2 text-white shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all duration-300 ${
+            className={`w-full sm:w-auto px-10 py-4 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center space-x-2 text-white shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all duration-300 translate-z-8 ${
               isAnalyzing
                 ? 'bg-indigo-900/60 cursor-not-allowed'
                 : 'bg-gradient-to-r from-cyan-500 via-indigo-600 to-fuchsia-600 hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:scale-[1.02]'
@@ -242,7 +249,7 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
               </>
             )}
           </button>
-        </div>
+        </TiltWave3D>
       </div>
     </div>
   );
