@@ -74,10 +74,10 @@ export const UploadZone = ({ onAnalyze, isAnalyzing }) => {
               text="Deconstruct & Understand Contracts"
               as="h2"
               mode="chars"
-              waveAmplitude={6}
-              waveSpeed={2.2}
-              cursorLift={16}
-              className="text-3xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-cyan-100 to-indigo-200 bg-clip-text text-transparent glow-title-3d leading-tight"
+              waveAmplitude={5}
+              waveSpeed={2.0}
+              cursorLift={14}
+              className="text-3xl sm:text-5xl font-black tracking-tight text-white glow-title-3d leading-tight"
             />
           </div>
           <div>

@@ -30,19 +30,23 @@ export const TextWave3D = ({
     return '';
   }, [text, children]);
 
-  // Split into units (characters or words)
-  const units = useMemo(() => {
-    if (!rawString) return [];
-    if (mode === 'words') {
-      return rawString.split(/\s+/).filter(Boolean);
-    }
-    // characters
-    return rawString.split('');
+  // Group into words so lines wrap cleanly at word boundaries without breaking mid-word
+  const { wordTokens, totalCount } = useMemo(() => {
+    if (!rawString) return { wordTokens: [], totalCount: 0 };
+    const words = rawString.split(/\s+/).filter(Boolean);
+    let count = 0;
+    const tokens = words.map((w) => {
+      const chars = mode === 'words' ? [w] : w.split('');
+      const startIndex = count;
+      count += chars.length;
+      return { word: w, chars, startIndex };
+    });
+    return { wordTokens: tokens, totalCount: count };
   }, [rawString, mode]);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || units.length === 0) return;
+    if (!container || totalCount === 0) return;
 
     let mouseX = -9999;
     let mouseY = -9999;
@@ -77,12 +81,12 @@ export const TextWave3D = ({
         mouseY <= containerRect.bottom + cursorRadius
       );
 
-      for (let i = 0; i < spanElements.length; i++) {
+      for (let i = 0; i < totalCount; i++) {
         const span = spanElements[i];
         if (!span) continue;
 
         // Base continuous wave offset
-        const phase = i * (mode === 'words' ? 0.32 : 0.2);
+        const phase = i * (mode === 'words' ? 0.32 : 0.18);
         const baseWaveY = Math.sin(elapsed * waveSpeed + phase) * waveAmplitude;
         const baseRotZ = Math.cos(elapsed * waveSpeed + phase) * 1.2;
 
@@ -124,7 +128,7 @@ export const TextWave3D = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [units, waveAmplitude, waveSpeed, cursorRadius, cursorLift, mode]);
+  }, [totalCount, waveAmplitude, waveSpeed, cursorRadius, cursorLift, mode]);
 
   if (!rawString && children) {
     return <Component className={className}>{children}</Component>;
@@ -136,18 +140,25 @@ export const TextWave3D = ({
       className={`inline-block preserve-3d select-none ${className}`}
       style={{ transformStyle: 'preserve-3d', perspective: '800px' }}
     >
-      {units.map((unit, idx) => (
+      {wordTokens.map((token, wIdx) => (
         <span
-          key={idx}
-          ref={(el) => (spansRef.current[idx] = el)}
-          className={`inline-block will-change-transform ${
-            mode === 'words'
-              ? 'mr-[0.3em]'
-              : (unit === ' ' ? 'w-[0.3em]' : '')
-          }`}
+          key={wIdx}
+          className="inline-block whitespace-nowrap mr-[0.3em]"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          {unit === ' ' ? '\u00A0' : unit}
+          {token.chars.map((char, cIdx) => {
+            const idx = token.startIndex + cIdx;
+            return (
+              <span
+                key={cIdx}
+                ref={(el) => (spansRef.current[idx] = el)}
+                className="inline-block will-change-transform"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                {char}
+              </span>
+            );
+          })}
         </span>
       ))}
     </Component>
