@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @layer base {
   body {
@@ -12,17 +12,17 @@
 
 /* Custom 3D & Glowing Glass Utility Classes */
 .glass-card {
-  background: rgba(13, 18, 36, 0.68);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  background: rgba(13, 18, 36, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: none;
+  box-shadow: 0 14px 40px -5px rgba(0, 0, 0, 0.65);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 16px 45px -5px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.15);
+  border: none;
+  box-shadow: 0 20px 50px -5px rgba(0, 0, 0, 0.75), 0 0 30px rgba(99, 102, 241, 0.12);
   transform: translateY(-2px);
 }
 
