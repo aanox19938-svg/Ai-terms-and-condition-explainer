@@ -3,6 +3,5 @@ node_modules
 uploads/*
 !uploads/.gitkeep
 backend/data/*.json
-frontend/dist
 .DS_Store
 *.log
