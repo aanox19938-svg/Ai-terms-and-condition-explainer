@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 export const ThreeCanvas = () => {
@@ -137,11 +137,11 @@ export const ThreeCanvas = () => {
 
     // 9. Animation Loop
     let animId;
-    let clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
+      const elapsed = (performance.now() - startTime) * 0.001;
 
       // Smooth camera interpolation toward mouse
       targetX += (mouseX - targetX) * 0.05;
