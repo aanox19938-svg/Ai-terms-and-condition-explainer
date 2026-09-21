@@ -10,6 +10,7 @@ import { ChatDrawer } from './components/ChatDrawer';
 import { HistoryModal } from './components/HistoryModal';
 import { SettingsModal } from './components/SettingsModal';
 import { AuthModal } from './components/AuthModal';
+import { HorizontalTickerTape } from './components/HorizontalTickerTape';
 import { apiService } from './services/api';
 import { MessageSquare, ArrowLeft, FileText, Shield, Sparkles } from 'lucide-react';
 
@@ -197,6 +198,11 @@ export function App() {
           </div>
         )}
       </main>
+
+      {/* GSAP ScrollTrigger Continuous Horizontal Text Flow Ticker Tape */}
+      <div className="relative z-10 w-full overflow-hidden my-4">
+        <HorizontalTickerTape />
+      </div>
 
       {/* Floating Action Button for Chat if a document is loaded */}
       {currentDocument && !isChatOpen && (
